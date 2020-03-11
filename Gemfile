@@ -57,3 +57,7 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'rubocop', '~> 0.80.1'
+
+gem "dry-monads", "~> 1.3"
+
+gem "dry-initializer-rails", "~> 3.1"
