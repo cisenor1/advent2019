@@ -1,12 +1,14 @@
 # frozen_string_literal: true
+require 'dry-monads'
 
 # Calculates the required fuel based on a module's mass
 class FuelCalculator
-  def initialize(module_mass:)
-    @module_mass = module_mass
+  include Dry::Monads[:result]
+  def initialize(mass:)
+    @mass = mass
   end
 
   def call
-    module_mass
+    Success(@mass/3 -2)
   end
 end
