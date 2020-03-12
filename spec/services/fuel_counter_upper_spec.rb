@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'dry-monads'
 require 'services/fuel_counter_upper'
 
 RSpec.describe FuelCounterUpper do
-  let(:calculator) { double(FuelCalculator, call: 1) }
+  let(:calculator) { double(FuelCalculator, call: Dry::Monads::Success(1)) }
   let(:counter_upper) { described_class.new(calculator: calculator) } 
   subject { counter_upper.call(masses: masses) }
   
