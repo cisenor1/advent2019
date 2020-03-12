@@ -23,11 +23,11 @@ require 'services/fuel_calculator'
 #What is the sum of the fuel requirements for all of the modules on your spacecraft?
 
 RSpec.describe FuelCalculator do
+  let(:calculator) { FuelCalculator.new }
+  subject { calculator.call(mass: mass) }
   describe 'success cases' do
-    let(:calculator) { FuelCalculator.new(mass: 12) }
-    subject { calculator.call }
     context 'when provided with valid input' do
-      let(:module_mass) { 4 }
+      let(:mass) { 12 }
       it 'will return with a success status' do
         expect(subject.success?).to be true
       end
@@ -37,11 +37,34 @@ RSpec.describe FuelCalculator do
     end
   end
   context 'with challenge variables' do
-    it 'returns the expected values' do
-      expect(described_class.new(mass: 12).call.value!).to equal 2
-      expect(described_class.new(mass: 14).call.value!).to equal 2
-      expect(described_class.new(mass: 1969).call.value!).to equal 654
-      expect(described_class.new(mass: 100756).call.value!).to equal 33583
+    it 'returns the expected values', :aggregate_failures do
+      expect(described_class.new.call(mass: 12).value!).to equal 2
+      expect(described_class.new.call(mass: 14).value!).to equal 2
+      expect(described_class.new.call(mass: 1969).value!).to equal 654
+      expect(described_class.new.call(mass: 100756).value!).to equal 33583
+    end
+  end
+  context 'invalid masses' do
+    context 'with nil' do
+      let(:mass) { nil }
+      it 'will raise an ArgumentError' do
+        expect(subject.success?).to be false
+        expect(subject.failure).to eq :nil_argument
+      end
+    end
+    context 'with a string' do
+      let(:mass) { 'mass' }
+      it 'will raise an ArgumentError' do
+        expect(subject.success?).to be false
+        expect(subject.failure).to eq :non_numeric_argument
+      end
+    end
+    context 'with a negative value' do
+      let(:mass) { -2 }
+      it 'will raise an ArgumentError' do
+        expect(subject.success?).to be false
+        expect(subject.failure).to eq :negative_argument
+      end
     end
   end
 end
