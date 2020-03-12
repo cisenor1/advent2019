@@ -61,3 +61,5 @@ gem 'rubocop', '~> 0.80.1'
 gem "dry-monads", "~> 1.3"
 
 gem "dry-initializer-rails", "~> 3.1"
+
+gem "rails-i18n", "~> 6.0"
