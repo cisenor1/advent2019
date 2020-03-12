@@ -1,3 +1,8 @@
 <h1>Challenges#index</h1>
 <%= @id %>
 <p><%= link_to :index %></p>
+
+<%= form_with(url: '/challenge1', method: 'post') do %>
+  <%= text_field_tag(:masses) %>
+  <%= submit_tag(t('hello')) %>
+<% end %>
