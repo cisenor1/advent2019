@@ -1,17 +1,13 @@
 require 'spec_helper'
 require 'dry-monads'
 require 'services/fuel_counter_upper'
+require 'services/fuel_calculator'
+require 'pry'
 
 RSpec.describe FuelCounterUpper do
-  let(:calculator) { double(FuelCalculator, call: Dry::Monads::Success(1)) }
+  let(:calculator) { FuelCalculator.new }
   let(:counter_upper) { described_class.new(calculator: calculator) } 
   subject { counter_upper.call(masses: masses) }
-  
-  before do
-    allow_any_instance_of(FuelCalculator)
-      .to receive(:call)
-      .and_return(1)
-  end
   
   context 'given a list of masses' do
     let(:masses) { [1,2,4,6,345345] }
@@ -20,14 +16,6 @@ RSpec.describe FuelCounterUpper do
         .to receive(:call)
         .exactly(masses.size).times
       subject
-    end
-    
-    it 'returns successfully' do
-      expect(subject.success?).to be true
-    end
-    
-    it 'returns the fuel total' do
-      expect(subject.value!).to eq 5 # double always returns 1 
     end
   end
   

@@ -1,47 +1,14 @@
 require 'spec_helper'
 require 'services/fuel_calculator'
 
-#--- Day 1: The Tyranny of the Rocket Equation ---
-#Santa has become stranded at the edge of the Solar System while delivering presents to other planets! To accurately calculate his position in space, safely align his warp drive, and return to Earth in time to save Christmas, he needs you to bring him measurements from fifty stars.
-#
-#Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants one star. Good luck!
-#
-#The Elves quickly load you into a spacecraft and prepare to launch.
-#
-#At the first Go / No Go poll, every Elf is Go until the Fuel Counter-Upper. They haven't determined the amount of fuel required yet.
-#
-#Fuel required to launch a given module is based on its mass. Specifically, to find the fuel required for a module, take its mass, divide by three, round down, and subtract 2.
-#
-#For example:
-#
-#For a mass of 12, divide by 3 and round down to get 4, then subtract 2 to get 2.
-#For a mass of 14, dividing by 3 and rounding down still yields 4, so the fuel required is also 2.
-#For a mass of 1969, the fuel required is 654.
-#For a mass of 100756, the fuel required is 33583.
-#The Fuel Counter-Upper needs to know the total fuel requirement. To find it, individually calculate the fuel needed for the mass of each module (your puzzle input), then add together all the fuel values.
-#
-#What is the sum of the fuel requirements for all of the modules on your spacecraft?
-
 RSpec.describe FuelCalculator do
   let(:calculator) { FuelCalculator.new }
   subject { calculator.call(mass: mass) }
-  describe 'success cases' do
-    context 'when provided with valid input' do
-      let(:mass) { 12 }
-      it 'will return with a success status' do
-        expect(subject.success?).to be true
-      end
-      it 'the return object will have the output value' do
-        expect(subject.value_or(nil)).to eq 2
-      end
-    end
-  end
-  context 'with challenge variables' do
-    it 'returns the expected values', :aggregate_failures do
-      expect(described_class.new.call(mass: 12).value!).to equal 2
-      expect(described_class.new.call(mass: 14).value!).to equal 2
-      expect(described_class.new.call(mass: 1969).value!).to equal 654
-      expect(described_class.new.call(mass: 100756).value!).to equal 33583
+  context 'will calculate the fuel required for the fuel calculated, recursively' do
+    let(:mass) { 100756 }
+    let(:expected_fuel) { 50346 }
+    it 'returns the total calculated fuel' do
+      expect(calculator.call(mass: mass)).to eq expected_fuel
     end
   end
   context 'invalid masses' do
