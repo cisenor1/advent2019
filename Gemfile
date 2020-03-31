@@ -36,6 +36,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "pry", "~> 0.12.2"
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rspec-rails', '~> 4.0.0beta'
@@ -63,3 +64,6 @@ gem "dry-monads", "~> 1.3"
 gem "dry-initializer-rails", "~> 3.1"
 
 gem "rails-i18n", "~> 6.0"
+
+
+gem "react-rails", "~> 2.6"
