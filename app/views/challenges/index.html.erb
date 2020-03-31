@@ -1,8 +1,14 @@
-<h1>Challenges#index</h1>
-<%= @id %>
-<p><%= link_to :index %></p>
+<h1><%= t("title") %></h1>
 
-<%= form_with(url: '/challenge1', method: 'post') do %>
-  <%= text_field_tag(:masses) %>
-  <%= submit_tag(t('hello')) %>
-<% end %>
+<div class="challenge-row">
+  <div class="description"><%= t('challenge1.text') %></div>
+  <div class="challenge-form">
+    <%= form_with(url: '/challenge1', method: 'post', multipart: true) do %>
+      <%= file_field(:mass_file, :data) %>
+      <%= submit_tag(t('calculate')) %>
+    <% end %>
+  </div>
+  <div class="result">
+    <%= @challenge1_result %>
+  </div>
+</div>
